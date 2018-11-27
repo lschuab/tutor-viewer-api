@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "js-joda": "^1.9.2",
     "knex": "^0.15.2",
-    "moment": "^2.22.2",
     "pg": "^7.6.1"
   }
 }

@@ -7,7 +7,7 @@ const port = process.env.PORT || 8000;
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static('public'));
 
-require('./config/sessions')(app);
+//require('./config/sessions')(app);
 
 var routes_setter = require('./config/routes.js');
 routes_setter(app);

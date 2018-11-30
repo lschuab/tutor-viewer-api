@@ -4,7 +4,7 @@ const shifts = require("../controllers/shifts.js")
 
 module.exports = function(app){
   app.get('/tutors', tutors.index)
-  app.get('/tutors/:id', tutors.show)
+  app.get('/tutors/:id', tutors.showDetails)
   app.post('/tutors', tutors.create)
   app.put('/tutors/:id', tutors.update)
   app.patch('/tutors/:id/toggle', tutors.toggle)

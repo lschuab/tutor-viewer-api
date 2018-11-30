@@ -6,7 +6,7 @@ module.exports = {
     .then(tutors => res.send(tutors))
   },
 
-  show: (req, res) => {
+  showDetails: (req, res) => {
     knex('tutors')
       .select(
         'tutors.id AS id',
@@ -23,9 +23,9 @@ module.exports = {
         'shifts.center'
       )
       .where('tutors.id', req.params.id)
-      .join('tutor_courses', 'tutor_courses.tutor_id', 'tutors.id')
-      .join('courses', 'courses.id', 'tutor_courses.course_id')
-      .join('shifts', 'shifts.tutor_id', 'tutors.id')
+      .leftJoin('tutor_courses', 'tutor_courses.tutor_id', 'tutors.id')
+      .leftJoin('courses', 'courses.id', 'tutor_courses.course_id')
+      .leftJoin('shifts', 'shifts.tutor_id', 'tutors.id')
       .orderBy('courses.id')
       .orderBy('shifts.id')
     .then(response => {
@@ -69,7 +69,7 @@ module.exports = {
         first_name: req.body.first_name,
         last_name: req.body.last_name
       }, '*')
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   },
 
   update: (req, res) => {
@@ -79,12 +79,15 @@ module.exports = {
         first_name: req.body.first_name,
         last_name: req.body.last_name
       }, '*')
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   },
 
   toggle: (req, res) => {
     knex.raw(`UPDATE tutors SET active = NOT active WHERE id = ${req.params.id}`)
-    .then(response => res.send(response))
+    .then(() => knex('tutors')
+        .where('id', req.params.id)
+    )
+    .then(response => res.send(response[0]))
   },
 
   delete: (req, res) => {
@@ -92,16 +95,16 @@ module.exports = {
       .where('id', req.params.id)
       .returning('*')
       .del()
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   },
 
   addCourse: (req, res) => {
     knex('tutor_courses')
       .insert({
         tutor_id: req.params.id,
-        course_id: req.params.body
+        course_id: req.body.course_id
       })
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   },
 
   removeCourse: (req, res) => {
@@ -111,7 +114,7 @@ module.exports = {
         'course_id': req.params.course_id
       })
       .del()
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   }
 
 }

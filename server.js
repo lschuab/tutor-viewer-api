@@ -1,11 +1,16 @@
 const express = require("express");
 // const path = require("path");
 const app = express();
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 8000;
-// app.use(bodyParser.json({ extended: true }));
-// app.use(bodyParser.urlencoded({ extended: true }));
+const cors = require('cors')
+
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static('public'));
+
+app.use(cors())
+
 
 //require('./config/sessions')(app);
 

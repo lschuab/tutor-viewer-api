@@ -7,18 +7,18 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('shifts').insert([
         {
-          day: "Monday",
-          start_time: LocalTime.of(8, 30),
-          end_time: LocalTime.of(14),
+          day: "Tuesday",
+          start_time: LocalTime.of(15, 30),
+          end_time: LocalTime.of(19),
           center: 'E Building',
-          tutor_id: 1
+          tutor_id: 25
         },
         {
-          day: "Tuedsay",
-          start_time: LocalTime.of(12, 00),
-          end_time: LocalTime.of(18),
+          day: "Thursday",
+          start_time: LocalTime.of(15, 30),
+          end_time: LocalTime.of(19),
           center: 'E Building',
-          tutor_id: 1
+          tutor_id: 25
         },
         {
           day: "Wednesday",

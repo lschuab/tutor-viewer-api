@@ -21,13 +21,13 @@ module.exports = {
         course_code: req.body.course_code,
         course_name: req.body.course_name
       }, '*')
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   },
 
   delete: (req, res) => {
     knex('courses')
       .where('id', req.params.id)
       .del()
-    .then(response => res.send(response))
+    .then(response => res.send(response[0]))
   }
 }
